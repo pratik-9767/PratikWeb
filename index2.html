@@ -1,0 +1,694 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: #111;
+            color: white;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #ff3b30;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ff3b30;
+        }
+
+        /* HERO */
+        .hero {
+            height: 450px;
+            background: linear-gradient(
+                rgba(0,0,0,0.65),
+                rgba(0,0,0,0.65)
+            ),
+            url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            background: #ff3b30;
+            color: white;
+            padding: 13px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero-btn:hover {
+            background: #e02d24;
+        }
+
+        /* CARS SECTION */
+        .cars-section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        /* SEARCH */
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 35px;
+            display: flex;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            padding: 14px 20px;
+            border: none;
+            background: #ff3b30;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* CAR GRID */
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .car-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .car-info p {
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            color: #ff3b30;
+            font-size: 21px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .details-btn {
+            background: #111;
+            color: white;
+            border: none;
+            padding: 10px 17px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .details-btn:hover {
+            background: #ff3b30;
+        }
+
+        .favorite {
+            border: none;
+            background: none;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .favorite.active {
+            color: red;
+        }
+
+        /* ABOUT */
+        .about {
+            background: #111;
+            color: white;
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 35px;
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+            color: #ccc;
+        }
+
+        /* CONTACT */
+        .contact {
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .contact p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            margin-top: 15px;
+            background: #ff3b30;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #000;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .car-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            nav ul {
+                gap: 12px;
+            }
+
+            nav ul li a {
+                font-size: 13px;
+            }
+
+            .hero-content h1 {
+                font-size: 38px;
+            }
+
+            .car-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="logo">CAR STORE</div>
+
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#cars">Cars</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+            <h1>Find Your Dream Car</h1>
+
+            <p>
+                Premium cars. Great prices. Perfect choice.
+            </p>
+
+            <a href="#cars" class="hero-btn">
+                Explore Cars
+            </a>
+        </div>
+
+    </section>
+
+
+    <!-- CARS SECTION -->
+    <section class="cars-section" id="cars">
+
+        <div class="section-title">
+            <h2>Our Cars</h2>
+            <p>Choose from our collection of premium cars</p>
+        </div>
+
+
+        <!-- SEARCH -->
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search car..."
+            >
+
+            <button onclick="searchCars()">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- CAR GRID -->
+        <div class="car-grid" id="carGrid">
+
+
+            <!-- CAR 1 -->
+            <div class="car-card" data-name="BMW M4">
+
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>BMW M4</h3>
+
+                    <p>Luxury • Automatic • Petrol</p>
+
+                    <div class="price">
+                        ₹75 Lakh
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('BMW M4')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- CAR 2 -->
+            <div class="car-card" data-name="Mercedes AMG">
+
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>Mercedes AMG</h3>
+
+                    <p>Luxury • Automatic • Petrol</p>
+
+                    <div class="price">
+                        ₹95 Lakh
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('Mercedes AMG')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- CAR 3 -->
+            <div class="car-card" data-name="Audi R8">
+
+                <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>Audi R8</h3>
+
+                    <p>Sports • Automatic • Petrol</p>
+
+                    <div class="price">
+                        ₹2.10 Crore
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('Audi R8')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- CAR 4 -->
+            <div class="car-card" data-name="Porsche 911">
+
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>Porsche 911</h3>
+
+                    <p>Sports • Automatic • Petrol</p>
+
+                    <div class="price">
+                        ₹1.90 Crore
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('Porsche 911')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- CAR 5 -->
+            <div class="car-card" data-name="Toyota Supra">
+
+                <img src="https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>Toyota Supra</h3>
+
+                    <p>Sports • Automatic • Petrol</p>
+
+                    <div class="price">
+                        ₹85 Lakh
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('Toyota Supra')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- CAR 6 -->
+            <div class="car-card" data-name="Range Rover">
+
+                <img src="https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=800&q=80">
+
+                <div class="car-info">
+
+                    <h3>Range Rover</h3>
+
+                    <p>SUV • Automatic • Diesel</p>
+
+                    <div class="price">
+                        ₹1.50 Crore
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <button
+                            class="details-btn"
+                            onclick="showDetails('Range Rover')">
+                            View Details
+                        </button>
+
+                        <button
+                            class="favorite"
+                            onclick="favoriteCar(this)">
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+
+        <h2>About Car Store</h2>
+
+        <p>
+            Car Store is a modern online showroom where you can
+            explore premium, luxury and sports cars. We provide
+            quality vehicles at competitive prices and help you
+            find the perfect car for your lifestyle.
+        </p>
+
+    </section>
+
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+
+        <h2>Contact Us</h2>
+
+        <p>📍 Pune, Maharashtra, India</p>
+
+        <p>📞 +91 98765 43210</p>
+
+        <p>✉️ carstore@gmail.com</p>
+
+        <a href="mailto:carstore@gmail.com" class="contact-btn">
+            Contact Us
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+        © 2026 Car Store. All Rights Reserved.
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        // SEARCH CARS
+        function searchCars() {
+
+            let input =
+                document.getElementById("searchInput")
+                .value
+                .toLowerCase();
+
+            let cars =
+                document.querySelectorAll(".car-card");
+
+            cars.forEach(function(car) {
+
+                let carName =
+                    car.getAttribute("data-name")
+                    .toLowerCase();
+
+                if (carName.includes(input)) {
+                    car.style.display = "block";
+                }
+                else {
+                    car.style.display = "none";
+                }
+
+            });
+        }
+
+
+        // FAVORITE BUTTON
+        function favoriteCar(button) {
+
+            button.classList.toggle("active");
+
+            if (button.classList.contains("active")) {
+                button.innerHTML = "♥";
+            }
+            else {
+                button.innerHTML = "♡";
+            }
+
+        }
+
+
+        // CAR DETAILS
+        function showDetails(carName) {
+
+            alert(
+                "You selected: " +
+                carName +
+                "\n\nOur team will help you with more information about this car."
+            );
+
+        }
+
+
+        // SEARCH WHILE TYPING
+        document
+            .getElementById("searchInput")
+            .addEventListener("keyup", searchCars);
+
+    </script>
+
+</body>
+</html>
+```
